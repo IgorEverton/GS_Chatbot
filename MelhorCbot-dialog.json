@@ -1,0 +1,519 @@
+{
+  "intents": [
+    {
+      "intent": "cesta_basica",
+      "examples": [
+        {
+          "text": "como funciona o beneficio da cesta basica?"
+        },
+        {
+          "text": "poderia me dar uma ajuda sobre o beneficio da cesta basica?"
+        },
+        {
+          "text": "queria saber sobre a cesta basica"
+        },
+        {
+          "text": "quero mais informação sobre a cesta basica"
+        },
+        {
+          "text": "tem beneficio de cesta basica?"
+        },
+        {
+          "text": "tem cesta basica?"
+        }
+      ],
+      "description": "Usuário deseja saber mais sobre o beneficio de cesta básica da empresa"
+    },
+    {
+      "intent": "exame_periodico",
+      "examples": [
+        {
+          "text": "como funciona o exame?"
+        },
+        {
+          "text": "o exame periodico acontece como?"
+        },
+        {
+          "text": "pode me dar uma ajuda sobre o exame?"
+        },
+        {
+          "text": "queria informação sobre o exame, pode me ajudar?"
+        },
+        {
+          "text": "queria informações sobre o exame"
+        },
+        {
+          "text": "queria informações sobre o exame periodico"
+        }
+      ],
+      "description": "Usuário quer informações sobre o exame periódico "
+    },
+    {
+      "intent": "inclusao_beneficiario",
+      "examples": [
+        {
+          "text": "como faço para incluir um beneficiario?"
+        },
+        {
+          "text": "me da uma ajuda para incluir um beneficiario?"
+        },
+        {
+          "text": "queria mais informações sobre inclusão de beneficiario"
+        },
+        {
+          "text": "quero adicionar um beneficiario, pode me ajudar?"
+        },
+        {
+          "text": "quero colocar um parente no meu beneficio, como faço?"
+        },
+        {
+          "text": "quero incluir um beneficiario, como faço?"
+        }
+      ],
+      "description": "usuário quer incluir um beneficiário "
+    },
+    {
+      "intent": "plano_saude",
+      "examples": [
+        {
+          "text": "como funciona o plano de saúde"
+        },
+        {
+          "text": "consegue me ajudar sobre o plano de saúde?"
+        },
+        {
+          "text": "poderia me explicar o plano de saúde?"
+        },
+        {
+          "text": "queria saber sobre o plano de saúde"
+        },
+        {
+          "text": "queria uma ajuda sobre o plano de saúde"
+        },
+        {
+          "text": "tem plano de saúde?"
+        }
+      ],
+      "description": "Usuário está querendo saber mais sobre o plano de saúde"
+    },
+    {
+      "intent": "Welcome",
+      "examples": [
+        {
+          "text": "oi"
+        },
+        {
+          "text": "oi consegue me dar uma ajuda?"
+        },
+        {
+          "text": "oi pode me ajudar"
+        },
+        {
+          "text": "Olá"
+        },
+        {
+          "text": "olá poderia me ajudar"
+        },
+        {
+          "text": "opa"
+        },
+        {
+          "text": "salve"
+        }
+      ],
+      "description": "Usuário iniciou uma conversa com o chatbot"
+    }
+  ],
+  "entities": [
+    {
+      "entity": "novo_beneficiario",
+      "values": [
+        {
+          "type": "synonyms",
+          "value": "novo beneficiario",
+          "synonyms": []
+        }
+      ],
+      "fuzzy_match": true
+    },
+    {
+      "entity": "parentesco",
+      "values": [
+        {
+          "type": "synonyms",
+          "value": "parentesco",
+          "synonyms": [
+            "esposa",
+            "esposo",
+            "filha",
+            "filho"
+          ]
+        }
+      ],
+      "fuzzy_match": true
+    },
+    {
+      "entity": "RG",
+      "values": [
+        {
+          "type": "patterns",
+          "value": "RG",
+          "patterns": [
+            "(\\d{8}-\\d{1})",
+            "(\\d{9})",
+            "(\\d{8} \\d{1})"
+          ]
+        }
+      ],
+      "fuzzy_match": false
+    },
+    {
+      "entity": "sim_nao",
+      "values": [
+        {
+          "type": "synonyms",
+          "value": "não",
+          "synonyms": [
+            "nao",
+            "não"
+          ]
+        },
+        {
+          "type": "synonyms",
+          "value": "sim",
+          "synonyms": [
+            "ok",
+            "pode ser",
+            "sim"
+          ]
+        }
+      ],
+      "fuzzy_match": true
+    }
+  ],
+  "metadata": {
+    "api_version": {
+      "major_version": "v2",
+      "minor_version": "2018-11-08"
+    }
+  },
+  "dialog_nodes": [
+    {
+      "type": "standard",
+      "title": "Bem-vindo",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "Olá o RHbot irá lhe ajudar com diversas informações da empresa e\nirá lhe ajudar a fazer a solicitação da inclusão de novos beneficiários\nno plano de saúde."
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "conditions": "welcome",
+      "dialog_node": "Bem-vindo"
+    },
+    {
+      "type": "standard",
+      "title": "Em outros casos",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "Eu não entendi. Você pode tentar reformular a frase."
+              },
+              {
+                "text": "Você pode reformular sua afirmação? Eu não estou entendendo."
+              },
+              {
+                "text": "Eu não entendi o sentido."
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "conditions": "anything_else",
+      "dialog_node": "Em outros casos",
+      "previous_sibling": "node_4_1654730226880",
+      "disambiguation_opt_out": true
+    },
+    {
+      "type": "event_handler",
+      "output": {},
+      "parent": "slot_10_1654729088852",
+      "context": {
+        "parentesco": "@parentesco.literal"
+      },
+      "conditions": "@parentesco",
+      "event_name": "input",
+      "dialog_node": "handler_1_1654729088863"
+    },
+    {
+      "type": "event_handler",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "Qual o RG dessa pessoa?"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "slot_1_1654729135671",
+      "context": {
+        "RG": "@RG.literal"
+      },
+      "event_name": "focus",
+      "dialog_node": "handler_3_1654729135672",
+      "previous_sibling": "handler_5_1654729135672"
+    },
+    {
+      "type": "event_handler",
+      "output": {},
+      "parent": "slot_1_1654729135671",
+      "context": {
+        "RG": "@RG.literal"
+      },
+      "conditions": "@RG",
+      "event_name": "input",
+      "dialog_node": "handler_5_1654729135672"
+    },
+    {
+      "type": "event_handler",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "Qual o seu parentesco com essa pessoa?"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "slot_10_1654729088852",
+      "context": {
+        "RG": "@RG.literal"
+      },
+      "event_name": "focus",
+      "dialog_node": "handler_7_1654729088863",
+      "previous_sibling": "handler_1_1654729088863"
+    },
+    {
+      "type": "standard",
+      "title": "Cesta básica",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "As cestas básicas da empresa não geram nenhum desconto na\nfolha salarial da empresa e são entregues até o quinto dia útil de\ncada mês."
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "conditions": "#cesta_basica",
+      "dialog_node": "node_10_1654728907162",
+      "previous_sibling": "node_1_1654728766184"
+    },
+    {
+      "type": "standard",
+      "title": "Plano de saúde",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "Os planos de saúde oferecidos pela empresa são da empresa Melhor Saúde, onde oferecemos o plano básico, intermediário e o plano plus. Para troca de plano de saúde é necessário entrar em contato com o RH e solicitar via uma carta manuscrita a troca de plano de saúde."
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "conditions": "#plano_saude",
+      "dialog_node": "node_1_1654728766184",
+      "previous_sibling": "Bem-vindo"
+    },
+    {
+      "type": "standard",
+      "title": "Exame ",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "O exame periódico é feito dentro da própria empresa a cada dois\nanos para funcionários maiores de 18 anos e menores do que 45\nanos. Para as outras faixas etárias o exame é feito anualmente."
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "conditions": "#exame_periodico",
+      "dialog_node": "node_2_1654728930810",
+      "previous_sibling": "node_10_1654728907162"
+    },
+    {
+      "type": "standard",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "Foi enviado uma solicitação para o RH para incluir um novo beneficiário no plano com o RG: $RG"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "conditions": "$RG && $novo_beneficiario",
+      "digress_in": "does_not_return",
+      "dialog_node": "node_4_1654730226880",
+      "previous_sibling": "node_9_1654728949025"
+    },
+    {
+      "type": "standard",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "Foi enviada uma solicitação para adicionar uma nova pessoa ao seu plano de saúde. O RH ira lhe enviar um e-mail solicitando os documentos necessário para esse processo."
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_7_1654728993326",
+      "context": {
+        "novo_beneficiario": true
+      },
+      "conditions": "@sim_nao:sim",
+      "dialog_node": "node_5_1654729259615"
+    },
+    {
+      "type": "frame",
+      "title": "Positivo para o beneficiário ",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "Deseja adicionar a pessoa com RG: $RG que é seu(sua) $parentesco?"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_9_1654728949025",
+      "conditions": "@sim_nao:sim",
+      "dialog_node": "node_7_1654728993326"
+    },
+    {
+      "type": "standard",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "Nesse caso não podemos adicionar essa pessoa ao seu plano de saúde"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_7_1654728993326",
+      "context": {
+        "RG": null,
+        "novo_beneficiario": null
+      },
+      "conditions": "@sim_nao:não",
+      "dialog_node": "node_7_1654729346227",
+      "previous_sibling": "node_5_1654729259615"
+    },
+    {
+      "type": "standard",
+      "title": "Beneficiário ",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "Ok, para incluir um beneficiário ele deve ter um parentesco de\nfilho(a) ou ser o seu cônjuge. A pessoa que você deseja incluir se\nenquadra em um desses dois cenários?"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "conditions": "#inclusao_beneficiario",
+      "dialog_node": "node_9_1654728949025",
+      "previous_sibling": "node_2_1654728930810"
+    },
+    {
+      "type": "slot",
+      "output": {},
+      "parent": "node_7_1654728993326",
+      "variable": "$parentesco",
+      "dialog_node": "slot_10_1654729088852",
+      "previous_sibling": "node_7_1654729346227"
+    },
+    {
+      "type": "slot",
+      "output": {},
+      "parent": "node_7_1654728993326",
+      "variable": "$RG",
+      "dialog_node": "slot_1_1654729135671",
+      "previous_sibling": "slot_10_1654729088852"
+    }
+  ],
+  "counterexamples": [],
+  "system_settings": {
+    "disambiguation": {
+      "prompt": "Você quis dizer:",
+      "enabled": true,
+      "randomize": true,
+      "max_suggestions": 5,
+      "suggestion_text_policy": "title",
+      "none_of_the_above_prompt": "Nenhuma das anteriores"
+    },
+    "human_agent_assist": {
+      "prompt": "Você quis dizer:"
+    },
+    "intent_classification": {
+      "training_backend_version": "v2"
+    }
+  },
+  "learning_opt_out": false,
+  "name": "MelhorCbot",
+  "language": "pt-br",
+  "description": "Bot para ajudar usuário com duvidas gerais"
+}
